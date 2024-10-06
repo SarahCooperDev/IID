@@ -1,0 +1,45 @@
+.content{
+    text-align: left;
+}
+
+.detail_div{
+    width: 100%;
+}
+
+.left_div{
+    text-align: left;
+    float: left;
+    width: 50%;
+    padding: 20px;
+    padding-top: 20px;
+}
+
+.left_details_div{
+    background-color: #d87c74;
+    border-radius: 10px;
+    border: 1px solid #734d64;
+    padding: 10px;
+}
+
+.right_div{
+    text-align: left;
+    padding: 10px;
+    padding-top: 20px;
+    width: 49%;
+    float: right;
+}
+
+.right_details_div{
+    background-color: #d87c74;
+    border-radius: 10px;
+    border: 1px solid #734d64;
+    padding: 20px;
+}
+
+.section_heading {
+    font-size:x-large;
+}
+
+.padded_line{
+    padding-bottom: 10px;
+}

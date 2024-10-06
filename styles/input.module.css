@@ -1,0 +1,45 @@
+.form_div {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #d87c74;
+    border-radius: 20px;
+}
+
+.form_row {
+    padding: 20px;
+}
+
+.form_cell {
+    padding: 15px;
+}
+
+.submit_button {
+    background-color: #734d64;
+    color: white;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.input_field {
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.datetimepicker {
+    background-color: white;
+    color: black;
+}
+
+.datetimepicker,
+.datetimepicker input {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.client_select {
+    color: black;
+}
