@@ -1,5 +1,4 @@
-import { GetChargesForClient } from '@/lib/ChargeController';
-import { GetClientWithID } from '@/lib/ClientController';
+import { CreateClient, EditClient } from '@/lib/ClientController';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse, NextRequest } from "next/server";
  
@@ -18,15 +17,16 @@ export function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>)
     }
   }
 
-  export async function GET(req: NextApiRequest, context: { params: { id: string } }, res: NextApiResponse<ResponseData>) {
-    console.log("Hit get client api");
+  export async function POST(req: Request, res: NextApiResponse<ResponseData>) {
+    console.log("Hit post api");
 
-    const clientId = context.params.id;    
-    let data = await GetClientWithID(clientId);
-    const charges = await GetChargesForClient(clientId);
-    data?.SetCharges(charges!);
+    const data = await req.json();
 
-    return NextResponse.json(data, {
-      status: 200,
-    });
+    console.log("API business name");
+    console.log(data.business_name);
+
+    let id = await EditClient(data.client_id, data.business_name, data.contact_name, data.contact_email, data.contact_phone, data.address);
+
+    return NextResponse.json({client_id: id}, {status: 200,});
+
   }

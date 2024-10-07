@@ -9,6 +9,7 @@ export class ChargeVM{
     client!: ClientVM;
     client_id:number;
     client_contact!:string;
+    client_business!:string;
     charge_amount:number;
     service_hours!:number;
     charge_status:string;
@@ -28,6 +29,10 @@ export class ChargeVM{
 
     SetClientContact(client_contact: string){
         this.client_contact = client_contact;
+    }
+
+    SetClientBusiness(client_business: string){
+        this.client_business = client_business;
     }
 
     SetClientObject(client: ClientVM){

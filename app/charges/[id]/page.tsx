@@ -10,7 +10,7 @@ import useSWR from 'swr';
 
 const fetcher = (url:string) => fetch(url).then((res) => res.json())
 
-export default function Record({ params }: { params: {id: string}}){
+export default function ChargesIdPage({ params }: { params: {id: string}}){
     const { data, error } = useSWR(`/api/charges-data/${params.id}`, fetcher);
 
     if (error) return <div>Failed to load</div>
@@ -26,7 +26,7 @@ export default function Record({ params }: { params: {id: string}}){
                 <div className={detailstyles.content}>
                     <h1 className={styles.page_title}>Charge No. {params.id}</h1>
                     <Link href="/charges" className={styles.styled_link}>Back</Link>
-
+                    <Link href={`/charges/edit/${params.id}`}><button className={styles.add_button}>Edit Charge</button></Link>
                     <div className={detailstyles.detail_div}>
                         <div className={detailstyles.left_div}>
                             <div className={detailstyles.left_details_div}>

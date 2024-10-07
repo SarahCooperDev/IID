@@ -22,7 +22,7 @@ const fetcher = (url:string) => fetch(url).then((res) => res.json())
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export default function Page(this: any){
+export default function ChargesNewPage(props: any){
     const router = useRouter();
     const [value, onChange] = useState<Value>(new Date());
     const [isServiceData, setData] = useState({ isServices: false });
@@ -34,16 +34,20 @@ export default function Page(this: any){
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    console.log("Client data");
-    console.log(data[0].business_name);
-
     const clientOptions: { value: number; label: string; }[] = [];
 
     data.map((client:ClientVM) => (
         clientOptions.push({ value: client.client_id, label: client.business_name})
     ))
 
-    console.log(clientOptions);
+    console.log("Prop data");
+    console.log(props.idProp);
+
+    var client = clientOptions.find((c) => c.value == +"1");
+
+    if(props.idProp){
+        client = clientOptions.find((c) => c.value == +props.idProp);
+    }
     
     const handleSelectChange = () => {
         if(isServiceData.isServices == false){
@@ -110,7 +114,7 @@ export default function Page(this: any){
                                     <th className={inputStyles.form_cell}><Select
                                         className={inputStyles.client_select}
                                         classNamePrefix="select"
-                                        defaultValue={clientOptions[0]}
+                                        defaultValue={client}
                                         isDisabled={false}
                                         isLoading={false}
                                         isClearable={true}

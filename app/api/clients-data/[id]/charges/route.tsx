@@ -1,5 +1,4 @@
 import { GetChargesForClient } from '@/lib/ChargeController';
-import { GetClientWithID } from '@/lib/ClientController';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse, NextRequest } from "next/server";
  
@@ -19,12 +18,12 @@ export function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>)
   }
 
   export async function GET(req: NextApiRequest, context: { params: { id: string } }, res: NextApiResponse<ResponseData>) {
-    console.log("Hit get client api");
-
+    console.log("Hit get client-data/charges api");
+    
     const clientId = context.params.id;    
-    let data = await GetClientWithID(clientId);
-    const charges = await GetChargesForClient(clientId);
-    data?.SetCharges(charges!);
+    console.log(clientId);
+
+    let data = await GetChargesForClient(clientId);
 
     return NextResponse.json(data, {
       status: 200,

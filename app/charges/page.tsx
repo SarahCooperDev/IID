@@ -11,7 +11,7 @@ import { ChargeVM } from '@/models/ChargeVM';
 
 const fetcher = (url:string) => fetch(url).then((res) => res.json())
 
-export default function Page() {   
+export default function ChargesPage() {   
     const { data, error } = useSWR('/api/charges-data', fetcher);
 
     if (error) return <div>Failed to load</div>
@@ -39,6 +39,7 @@ export default function Page() {
                     <th>Category</th>
                     <th>Client ID</th>
                     <th>Client</th>
+                    <th>Client Contact</th>
                     <th>Charge Status</th>
                     <th>Charge Remaining</th>
                     <th>Link</th>
@@ -52,8 +53,9 @@ export default function Page() {
                       <th><p>{charge.date_of_service.toString()}</p></th>
                       <th>{charge.description}</th>
                       <th>{charge.category}</th>
-                      <th>{charge.client_id}</th>
-                      <th>{charge.client_contact}</th>
+                      <th><Link href={`/clients/${charge.client_id}`}>{charge.client_id}</Link></th>
+                      <th><Link href={`/clients/${charge.client_id}`}>{charge.client_business}</Link></th>
+                      <th><Link href={`/clients/${charge.client_id}`}>{charge.client_contact}</Link></th>
                       <th>{charge.charge_status}</th>
                       <th>${charge.charge_remaining}</th>
                       <th><Link href={`/charges/` + charge.charge_id} className={styles.styled_link}>View</Link></th>

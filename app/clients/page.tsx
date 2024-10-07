@@ -10,7 +10,7 @@ import { ClientVM } from "@/models/ClientVM";
 
 const fetcher = (url:string) => fetch(url).then((res) => res.json())
 
-export default function Clients(){
+export default function ClientsPage(){
 
     const { data, error } = useSWR('/api/clients-data', fetcher);
 

@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 import { ClientVM } from "@/models/ClientVM";
-import { InsertClient, SelectAllClients, SelectClientWithID } from "./DBManager";
+import { InsertClient, SelectAllClients, SelectClientWithID, UpdateClient } from "./DBManager";
 import { IClient } from "./DBManager";
 
 function ProcessClient(client:IClient){
@@ -47,6 +47,17 @@ export async function CreateClient(business_name:string, contact_name:string, co
         const client = await InsertClient(business_name, contact_name, contact_email, contact_phone, address);
 
         return client;
+    } catch (err){
+        console.log(`Error creating client: ${err}`);
+        return null;
+    }
+}
+
+export async function EditClient(client_id:string, business_name:string, contact_name:string, contact_email:string, contact_phone:string, address:string){
+    try{
+        const clientId = await UpdateClient(client_id, business_name, contact_name, contact_email, contact_phone, address);
+
+        return clientId;
     } catch (err){
         console.log(`Error creating client: ${err}`);
         return null;

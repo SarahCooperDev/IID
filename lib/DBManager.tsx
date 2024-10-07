@@ -200,6 +200,28 @@ export async function SelectChargeWithID(id:string): Promise<ICharge>{
     });
 }
 
+export async function SelectClientCharges(id:string): Promise<ICharge[]>{
+    return new Promise((resolve, reject) => {
+        console.log("Selecting charges for client");
+        console.log(id);
+        
+        const db = mysql.createConnection(access);
+
+        var q = `SELECT * FROM ${CHARGES_TB} WHERE client_id=${id}`;
+        db.query<ICharge[]>(q, (err, result) => {
+            if(err){
+                console.log(`Select client charges failed: ${err}`);
+                console.log(q);
+                db.destroy();
+                reject(err);
+            } else {
+                db.destroy();
+                resolve(result);
+            }       
+        })
+    })
+}
+
 export async function InsertCharge(description:string, category:string, client_id:string, charge_amount:string, service_hours:string, date_of_service:string){
     return new Promise((resolve, reject) => {
         const db = mysql.createConnection(access);
@@ -220,6 +242,38 @@ export async function InsertCharge(description:string, category:string, client_i
             } else {
                 db.destroy();
                 const chargeId:number = result.insertId;
+                resolve(chargeId);
+            }
+        })
+    });
+}
+
+export async function UpdateCharge(charge_id:string, description:string, category:string, client_id:string, charge_amount:string, service_hours:string, date_of_service:string){
+    return new Promise((resolve, reject) => {
+        const db = mysql.createConnection(access);
+
+        var chargeId: number = +charge_id;
+        var clientId: number = +client_id;
+        var chargeAmount: number = +charge_amount;
+        var serviceHours: number = +service_hours;
+        var dateString = moment(date_of_service).format("YYYY-MM-DD HH:mm:ss");
+
+        console.log(`Charge ID: ${chargeId}`);
+
+        var query = `UPDATE ${CHARGES_TB} SET `
+        query += `date_of_service="${dateString}", description="${description}", category="${category}", client_id="${clientId}", charge_amount="${chargeAmount}", `;
+        query += `service_hours="${serviceHours}" `
+        query += `WHERE charge_id=${charge_id}`;
+
+        console.log(query);
+          
+        db.query(query, (err, result) => {
+            if(err){
+                console.log(`Insert charge failed: ${err}`);
+                db.destroy();
+                reject(err);
+            } else {
+                db.destroy();
                 resolve(chargeId);
             }
         })
@@ -284,6 +338,27 @@ export async function InsertClient(business_name:string, contact_name:string, co
                 db.destroy();
                 const clientId:number = result.insertId;
                 resolve(clientId);
+            }
+        })
+    });
+}
+
+export async function UpdateClient(client_id:string, business_name:string, contact_name:string, contact_email:string, contact_phone:string, address:string){
+    return new Promise((resolve, reject) => {
+        const db = mysql.createConnection(access);
+
+        var query = `UPDATE ${CLIENTS_TB} SET `
+        query += `contact_name="${contact_name}", business_name="${business_name}", email="${contact_email}", phone="${contact_phone}", address="${address}" `;
+        query += `WHERE client_id=${client_id}`;
+
+        db.query(query, (err, result) => {
+            if(err){
+                console.log(`Update client data failed: ${err}`);
+                db.destroy();
+                reject(err);
+            } else {
+                db.destroy();
+                resolve(client_id);
             }
         })
     });

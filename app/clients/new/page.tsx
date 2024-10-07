@@ -8,7 +8,7 @@ import Head from "next/head";
 import styles from '../../../styles/main.module.css';
 import inputStyles from '../../../styles/input.module.css';
 
-export default function Page(){
+export default function ClientsNewPage(){
     const router = useRouter();
 
     const onSubmit = async (event: BaseSyntheticEvent<Event, EventTarget & HTMLFormElement>) => {

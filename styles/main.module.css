@@ -22,7 +22,7 @@
     padding: 10px;
     text-align: left;
     display: flex;
-    background-color: #d1645a;
+    background-image: linear-gradient(to bottom right, #d1645a, #f39749 );
 }
   
   .intro_div{
@@ -48,9 +48,12 @@
   }
   
   .add_button {
-    background-color: #734d64;
+    background-image: linear-gradient(#734d64, #2e1f28);
     color: white;
-    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-radius: 20px;
     margin: 5px;
   }
